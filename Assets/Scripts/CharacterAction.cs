@@ -4,12 +4,15 @@ using UnityEngine.InputSystem;
 public class CharacterAction : MonoBehaviour
 {
     private bool isJumping;
-    private bool isRunning;
+    private bool canJump = true;
+    // private bool isRunning;
 
     public Rigidbody body;
     public InputAction walk;
     public InputAction jump;
-    public InputAction run;
+    public float speed = 0.5f; 
+    
+    // public InputAction run;
     
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -17,13 +20,13 @@ public class CharacterAction : MonoBehaviour
         walk.Enable();
         jump.Enable();
         body = GetComponent<Rigidbody>();
-        run.Enable();
+        // run.Enable();
     }
 
     // Update is called once per frame
     void Update()
     {
-        if(jump.WasPressedThisFrame())
+        if(jump.WasPressedThisFrame() && canJump)
         {
             isJumping = true;
         }
@@ -34,7 +37,7 @@ public class CharacterAction : MonoBehaviour
     void FixedUpdate()
     {
         Vector2 input = walk.ReadValue<Vector2>();
-        body.linearVelocity += new Vector3(input.x, 0, input.y) * 0.3f;
+        body.linearVelocity += new Vector3(input.x, 0, input.y) * speed;
         
         if (isJumping)
         {
@@ -42,23 +45,34 @@ public class CharacterAction : MonoBehaviour
             isJumping = false;
         }
 
-        if (isRunning)
-        {   
-            Debug.Log("spirng");
-            body.linearVelocity = new Vector3(input.x, 0, input.y) * 300f;
-        }
+        // if (isRunning)
+        // {   
+        //     Debug.Log("spirng");
+        //     body.linearVelocity = new Vector3(input.x, 0, input.y) * 300f;
+        // }
     }
 
-    void sprint(InputAction.CallbackContext context)
+    void OnCollisionExit(Collision collision)
     {
-         if(context.started)
-        {
-            isRunning = true;
-        }
-        else if (context.canceled)
-        {
-            isRunning = false;
-        }
+        canJump = false;
     }
+
+    void OnCollisionEnter(Collision collision)
+    {
+        canJump = true;
+    }
+
+
+    // public void sprint(InputAction.CallbackContext context)
+    // {
+    //      if(context.started)
+    //     {
+    //         isRunning = true;
+    //     }
+    //     else if (context.canceled)
+    //     {
+    //         isRunning = false;
+    //     }
+    // }
     
 }
