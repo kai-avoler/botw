@@ -1123,7 +1123,7 @@ GameObject:
   - component: {fileID: 466950134}
   - component: {fileID: 466950133}
   - component: {fileID: 466950132}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Cube (6)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1657,7 +1657,7 @@ GameObject:
   - component: {fileID: 533139353}
   - component: {fileID: 533139352}
   - component: {fileID: 533139351}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Stairs (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3735,7 +3735,7 @@ GameObject:
   - component: {fileID: 572373523}
   - component: {fileID: 572373522}
   - component: {fileID: 572373521}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Cube
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4091,7 +4091,7 @@ GameObject:
   - component: {fileID: 703910639}
   - component: {fileID: 703910638}
   - component: {fileID: 703910637}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Arch (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5337,7 +5337,7 @@ GameObject:
   - component: {fileID: 1208356344}
   - component: {fileID: 1208356343}
   - component: {fileID: 1208356342}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Cube (3)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5693,6 +5693,7 @@ GameObject:
   - component: {fileID: 1264218733}
   - component: {fileID: 1264218732}
   - component: {fileID: 1264218737}
+  - component: {fileID: 1264218738}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -5713,73 +5714,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CharacterAction
   body: {fileID: 0}
-  walk:
-    m_Name: Walk
-    m_Type: 0
-    m_ExpectedControlType: 
-    m_Id: afa574de-efc3-4293-8cca-2dee6b70b43b
-    m_Processors: 
-    m_Interactions: 
-    m_SingletonActionBindings:
-    - m_Name: 2D Vector
-      m_Id: ae6b126b-f8da-415c-b0b8-e16c8b451351
-      m_Path: 2DVector
-      m_Interactions: 
-      m_Processors: 
-      m_Groups: 
-      m_Action: Walk
-      m_Flags: 4
-    - m_Name: up
-      m_Id: 54e195b0-59ef-48f7-8e08-91382667b39f
-      m_Path: <Keyboard>/w
-      m_Interactions: 
-      m_Processors: 
-      m_Groups: 
-      m_Action: Walk
-      m_Flags: 8
-    - m_Name: down
-      m_Id: 1fd9fad2-8e8c-4c5f-85c1-2c23c82d483e
-      m_Path: <Keyboard>/s
-      m_Interactions: 
-      m_Processors: 
-      m_Groups: 
-      m_Action: Walk
-      m_Flags: 8
-    - m_Name: left
-      m_Id: 203513c4-3246-4b3e-bede-3afd1a06de72
-      m_Path: <Keyboard>/a
-      m_Interactions: 
-      m_Processors: 
-      m_Groups: 
-      m_Action: Walk
-      m_Flags: 8
-    - m_Name: right
-      m_Id: bb60a72a-6c35-4c97-8b65-df57c12063c9
-      m_Path: <Keyboard>/d
-      m_Interactions: 
-      m_Processors: 
-      m_Groups: 
-      m_Action: Walk
-      m_Flags: 8
-    m_Flags: 0
-  jump:
-    m_Name: Jump
-    m_Type: 1
-    m_ExpectedControlType: Button
-    m_Id: 5e519f9a-03a6-4445-9d2a-e66ec4399aac
-    m_Processors: 
-    m_Interactions: 
-    m_SingletonActionBindings:
-    - m_Name: 
-      m_Id: f0cf2b75-2f9c-43c5-9704-8023288a80a6
-      m_Path: <Keyboard>/space
-      m_Interactions: 
-      m_Processors: 
-      m_Groups: 
-      m_Action: Jump
-      m_Flags: 0
-    m_Flags: 0
-  speed: 0.15
+  ground:
+    serializedVersion: 2
+    m_Bits: 64
+  climbable:
+    serializedVersion: 2
+    m_Bits: 0
+  speed: 0.1
 --- !u!136 &1264218733
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -5902,6 +5843,100 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 112
   m_CollisionDetection: 1
+--- !u!114 &1264218738
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1264218731}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 62899f850307741f2a39c98a8b639597, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.InputSystem::UnityEngine.InputSystem.PlayerInput
+  m_Actions: {fileID: -944628639613478452, guid: 437464d82e7829a438b9a0c0b600db92, type: 3}
+  m_NotificationBehavior: 2
+  m_UIInputModule: {fileID: 0}
+  m_DeviceLostEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_DeviceRegainedEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_ControlsChangedEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_ActionEvents:
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1264218732}
+        m_TargetAssemblyTypeName: CharacterAction, Assembly-CSharp
+        m_MethodName: Jump
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 1d8ea0b6-6f34-4618-bb0b-8e8cb763744d
+    m_ActionName: 'Player/Jump[/Keyboard/space]'
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1264218732}
+        m_TargetAssemblyTypeName: CharacterAction, Assembly-CSharp
+        m_MethodName: Walk
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 71ea0a3f-1943-4cb9-a877-942f464c74f0
+    m_ActionName: 'Player/Walk[/Keyboard/w,/Keyboard/s,/Keyboard/a,/Keyboard/d]'
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1264218732}
+        m_TargetAssemblyTypeName: CharacterAction, Assembly-CSharp
+        m_MethodName: Sprint
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 6651af74-4a5e-49b1-a46a-1ace355b1a44
+    m_ActionName: 'Player/Spring[/Keyboard/shift]'
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1264218732}
+        m_TargetAssemblyTypeName: CharacterAction, Assembly-CSharp
+        m_MethodName: Climb
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: f94a6b2f-6b36-468a-962e-9f3d9b8d8896
+    m_ActionName: 'Player/Climb[/Keyboard/w]'
+  m_NeverAutoSwitchControlSchemes: 0
+  m_DefaultControlScheme: 
+  m_DefaultActionMap: Player
+  m_SplitScreenIndex: -1
+  m_Camera: {fileID: 0}
 --- !u!1 &1412762783
 GameObject:
   m_ObjectHideFlags: 0
@@ -5916,7 +5951,7 @@ GameObject:
   - component: {fileID: 1412762786}
   - component: {fileID: 1412762785}
   - component: {fileID: 1412762784}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Arch
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -6935,7 +6970,7 @@ GameObject:
   - component: {fileID: 1422207865}
   - component: {fileID: 1422207864}
   - component: {fileID: 1422207863}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Cube (7)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -7291,7 +7326,7 @@ GameObject:
   - component: {fileID: 1428136429}
   - component: {fileID: 1428136428}
   - component: {fileID: 1428136427}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Cube (5)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -7647,7 +7682,7 @@ GameObject:
   - component: {fileID: 1430089442}
   - component: {fileID: 1430089441}
   - component: {fileID: 1430089440}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Cube (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -8359,7 +8394,7 @@ GameObject:
   - component: {fileID: 1678355589}
   - component: {fileID: 1678355588}
   - component: {fileID: 1678355587}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Cube (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -9255,7 +9290,7 @@ GameObject:
   - component: {fileID: 1704204613}
   - component: {fileID: 1704204612}
   - component: {fileID: 1704204611}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Stairs
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -11155,7 +11190,7 @@ GameObject:
   - component: {fileID: 1756340501}
   - component: {fileID: 1756340500}
   - component: {fileID: 1756340499}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Cube (4)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -11867,7 +11902,7 @@ GameObject:
   - component: {fileID: 1963454349}
   - component: {fileID: 1963454348}
   - component: {fileID: 1963454347}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Arch (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}

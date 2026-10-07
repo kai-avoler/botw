@@ -3,13 +3,13 @@ using UnityEngine.InputSystem;
 
 public class CharacterAction : MonoBehaviour
 {
-    private bool isJumping;
-    private bool canJump = true;
     // private bool isRunning;
-
+    private Vector2 walkInput;
     public Rigidbody body;
-    public InputAction walk;
-    public InputAction jump;
+    public LayerMask ground;
+    public LayerMask climbable;
+
+
     public float speed = 0.5f; 
     
     // public InputAction run;
@@ -17,62 +17,62 @@ public class CharacterAction : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        walk.Enable();
-        jump.Enable();
         body = GetComponent<Rigidbody>();
-        // run.Enable();
     }
 
     // Update is called once per frame
     void Update()
     {
-        if(jump.WasPressedThisFrame() && canJump)
-        {
-            isJumping = true;
-        }
+        body.linearVelocity += new Vector3(walkInput.x, 0, walkInput.y) * speed;
 
-       
+
     }
 
     void FixedUpdate()
     {
-        Vector2 input = walk.ReadValue<Vector2>();
-        body.linearVelocity += new Vector3(input.x, 0, input.y) * speed;
-        
-        if (isJumping)
-        {
-            body.linearVelocity += new Vector3(0f, 5.0f, 0f);
-            isJumping = false;
+
+    }
+
+    public void Walk(InputAction.CallbackContext c)
+    {
+        walkInput = c.ReadValue<Vector2>();
+    }
+
+    public void Jump(InputAction.CallbackContext c) 
+    {
+        if (c.started)
+        {   
+
+            if (Physics.Raycast(transform.position, Vector3.down, 1.5f, ground))
+            {
+                body.linearVelocity += new Vector3(0f, 5.0f, 0f);
+            }
+
+
+            
         }
-
-        // if (isRunning)
-        // {   
-        //     Debug.Log("spirng");
-        //     body.linearVelocity = new Vector3(input.x, 0, input.y) * 300f;
-        // }
     }
 
-    void OnCollisionExit(Collision collision)
+    public void Sprint(InputAction.CallbackContext c)
     {
-        canJump = false;
+        if(c.started)
+        {
+            body.linearVelocity = body.linearVelocity * 3;
+        }
+        else if (c.canceled)
+        {
+            body.linearVelocity = body.linearVelocity / 3;
+        }
     }
 
-    void OnCollisionEnter(Collision collision)
-    {
-        canJump = true;
+    public void Climb(InputAction.CallbackContext c)
+    {   
+        Vector2 climbInput = c.ReadValue<Vector2>();
+        Debug.Log(Physics.Raycast(transform.position, Vector3.forward, 1.5f, ground));
+        if(Physics.Raycast(transform.position, Vector3.forward, 1.5f, ground))
+        {
+            body.linearVelocity += new Vector3(0, 3, 0);
+        }
     }
-
-
-    // public void sprint(InputAction.CallbackContext context)
-    // {
-    //      if(context.started)
-    //     {
-    //         isRunning = true;
-    //     }
-    //     else if (context.canceled)
-    //     {
-    //         isRunning = false;
-    //     }
-    // }
     
 }
