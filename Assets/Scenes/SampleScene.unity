@@ -5719,7 +5719,7 @@ MonoBehaviour:
     m_Bits: 64
   climbable:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 128
   speed: 0.1
 --- !u!136 &1264218733
 CapsuleCollider:
