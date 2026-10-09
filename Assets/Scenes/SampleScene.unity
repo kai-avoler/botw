@@ -5920,7 +5920,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1264218732}
         m_TargetAssemblyTypeName: CharacterAction, Assembly-CSharp
-        m_MethodName: Climb
+        m_MethodName: Paraglide
         m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -5930,8 +5930,8 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-    m_ActionId: f94a6b2f-6b36-468a-962e-9f3d9b8d8896
-    m_ActionName: 'Player/Climb[/Keyboard/w]'
+    m_ActionId: 2a998575-99b0-48e1-bba8-376673a86709
+    m_ActionName: 'Player/Paraglide[/Keyboard/e]'
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Player

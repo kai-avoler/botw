@@ -6,6 +6,7 @@ public class CharacterAction : MonoBehaviour
     // private bool isRunning;
     private Vector2 walkInput;
     private Vector2 climbInput;
+    private bool isGliding = false;
     public Rigidbody body;
     public LayerMask ground;
     public LayerMask climbable;
@@ -36,8 +37,20 @@ public class CharacterAction : MonoBehaviour
              body.useGravity = true;
         }
         
-       
-        Debug.Log(walkInput);
+        if (isGliding)
+        {
+            if (body.linearVelocity.y < -1.0)
+            {
+                body.linearVelocity = new Vector3(body.linearVelocity.x, -1.0f ,body.linearVelocity.z);
+            }
+            
+            if (Physics.Raycast(transform.position, Vector3.down, 1.5f, ground))
+            {
+                isGliding = false;
+            }
+        }
+
+        Debug.Log(body.linearVelocity.y);
     }
 
     void FixedUpdate()
@@ -57,7 +70,7 @@ public class CharacterAction : MonoBehaviour
             
             if (Physics.Raycast(transform.position, Vector3.forward, 1.5f, ground))
             {
-                body.linearVelocity += new Vector3(5.0f, 0f, 5.0f);
+                transform.position += (-transform.forward * 0.3f);
             }
             
             else if (Physics.Raycast(transform.position, Vector3.down, 1.5f, ground))
@@ -81,6 +94,18 @@ public class CharacterAction : MonoBehaviour
         {
             body.linearVelocity = body.linearVelocity / 3;
         }
+    }
+
+    public void Paraglide(InputAction.CallbackContext c)
+    {
+        if(c.started)
+        {
+            if(!(Physics.Raycast(transform.position, Vector3.down, 4.0f, ground)))
+            {
+                isGliding = !isGliding;
+            }
+        }
+        
     }
 
     // public void Climb(InputAction.CallbackContext c)

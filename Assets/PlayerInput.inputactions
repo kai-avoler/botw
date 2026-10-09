@@ -34,13 +34,13 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "Climb",
-                    "type": "Value",
-                    "id": "f94a6b2f-6b36-468a-962e-9f3d9b8d8896",
+                    "name": "Paraglide",
+                    "type": "Button",
+                    "id": "2a998575-99b0-48e1-bba8-376673a86709",
                     "expectedControlType": "",
                     "processors": "",
                     "interactions": "",
-                    "initialStateCheck": true
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -123,12 +123,12 @@
                 },
                 {
                     "name": "",
-                    "id": "4e365246-9bb3-4203-bdac-5e0e1eca45b5",
-                    "path": "<Keyboard>/q",
+                    "id": "c6519e77-e1e2-4282-84b8-38e10787eb76",
+                    "path": "<Keyboard>/e",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Climb",
+                    "action": "Paraglide",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
