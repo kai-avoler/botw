@@ -12,29 +12,35 @@ public class CharacterAction : MonoBehaviour
     public LayerMask climbable;
 
 
-
-    public float speed = 0.5f; 
-    
+   
+    public float walkSpeed = 0.5f; 
+    public float sprintSpeed = 2.0f;
+    private float speed;
     // public InputAction run;
     
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         body = GetComponent<Rigidbody>();
+        speed = walkSpeed;
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (Physics.Raycast(transform.position, Vector3.forward, 0.6f, ground))
+        if (Physics.Raycast(transform.position  + Vector3.down * 0.8f, Vector3.forward, 0.6f, ground))
         {
-            body.linearVelocity += new Vector3(0, walkInput.y, 0) * speed;
+            body.linearVelocity = new Vector3(0, walkInput.y * 2, 0);
             body.useGravity = false;
         }
         else
         {
-             body.linearVelocity += new Vector3(walkInput.x, 0, walkInput.y) * speed;
+             body.linearVelocity = new Vector3(walkInput.x * speed, body.linearVelocity.y, walkInput.y * speed);
              body.useGravity = true;
+             if (walkInput.magnitude < 0.01)
+             {
+                body.linearVelocity = new Vector3(0, body.linearVelocity.y, 0);
+             }
         }
         
         if (isGliding)
@@ -50,7 +56,9 @@ public class CharacterAction : MonoBehaviour
             }
         }
 
-        Debug.Log(body.linearVelocity.y);
+        Debug.Log(walkInput * speed);
+        Debug.Log(walkInput * sprintSpeed);
+
     }
 
     void FixedUpdate()
@@ -75,7 +83,7 @@ public class CharacterAction : MonoBehaviour
             
             else if (Physics.Raycast(transform.position, Vector3.down, 1.5f, ground))
             {
-                body.linearVelocity += new Vector3(0f, 5.0f, 0f);
+                body.linearVelocity = new Vector3(body.linearVelocity.x, 5.0f, body.linearVelocity.z);
             }
             
             
@@ -88,12 +96,15 @@ public class CharacterAction : MonoBehaviour
     {
         if(c.started)
         {
-            body.linearVelocity = body.linearVelocity * 3;
+            speed = sprintSpeed;
         }
         else if (c.canceled)
         {
-            body.linearVelocity = body.linearVelocity / 3;
+            speed = walkSpeed;
         }
+
+        
+
     }
 
     public void Paraglide(InputAction.CallbackContext c)
@@ -105,6 +116,8 @@ public class CharacterAction : MonoBehaviour
                 isGliding = !isGliding;
             }
         }
+
+       
         
     }
 
