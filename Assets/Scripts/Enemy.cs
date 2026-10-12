@@ -21,10 +21,11 @@ public class Enemy : MonoBehaviour
     {
         playerPos = character.transform.position;
         distance = playerPos - transform.position;
+        distance.y = 0f;
         distance = distance.normalized;
 
         // transform.position = playerPos;
 
-        body.linearVelocity = distance * speed;
+        body.linearVelocity = new Vector3(distance.x * speed, body.linearVelocity.y, distance.z * speed);
     }
 }

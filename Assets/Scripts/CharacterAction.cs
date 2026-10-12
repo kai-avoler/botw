@@ -10,12 +10,14 @@ public class CharacterAction : MonoBehaviour
     public Rigidbody body;
     public LayerMask ground;
     public LayerMask climbable;
+    public int health;
 
 
    
     public float walkSpeed = 0.5f; 
     public float sprintSpeed = 2.0f;
     private float speed;
+    private Quaternion rot;
     // public InputAction run;
     
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -23,10 +25,20 @@ public class CharacterAction : MonoBehaviour
     {
         body = GetComponent<Rigidbody>();
         speed = walkSpeed;
+        rot = Quaternion.LookRotation(new Vector3(0, 0, 0));
     }
 
     // Update is called once per frame
     void Update()
+    {
+        
+
+        
+
+
+    }
+
+    void FixedUpdate()
     {
         if (Physics.Raycast(transform.position  + Vector3.down * 0.8f, Vector3.forward, 0.6f, ground))
         {
@@ -35,12 +47,21 @@ public class CharacterAction : MonoBehaviour
         }
         else
         {
-             body.linearVelocity = new Vector3(walkInput.x * speed, body.linearVelocity.y, walkInput.y * speed);
-             body.useGravity = true;
-             if (walkInput.magnitude < 0.01)
-             {
-                body.linearVelocity = new Vector3(0, body.linearVelocity.y, 0);
-             }
+            body.linearVelocity = new Vector3(walkInput.x * speed, body.linearVelocity.y, walkInput.y * speed);
+            body.useGravity = true;
+            Vector3 lookRot = new Vector3(walkInput.x, 0f, walkInput.y);
+
+            if (walkInput.magnitude > 0.01)
+            {
+                rot = Quaternion.LookRotation(lookRot);
+            }
+            
+            body.MoveRotation(rot);
+            if (walkInput.magnitude < 0.01)
+            {
+                body.linearVelocity = new Vector3(0, body.linearVelocity.y, 0);  
+            }
+             
         }
         
         if (isGliding)
@@ -55,20 +76,22 @@ public class CharacterAction : MonoBehaviour
                 isGliding = false;
             }
         }
-
-        Debug.Log(walkInput * speed);
-        Debug.Log(walkInput * sprintSpeed);
-
     }
 
-    void FixedUpdate()
+    private void OnTriggerEnter(Collider enemy)
     {
-
+        if (enemy.name == "Enemy")
+        {
+            health = health - 1;
+            Debug.Log(health);
+        }
     }
+
 
     public void Walk(InputAction.CallbackContext c)
     {
         walkInput = c.ReadValue<Vector2>();
+        
     }
 
     public void Jump(InputAction.CallbackContext c) 
@@ -84,9 +107,9 @@ public class CharacterAction : MonoBehaviour
             else if (Physics.Raycast(transform.position, Vector3.down, 1.5f, ground))
             {
                 body.linearVelocity = new Vector3(body.linearVelocity.x, 5.0f, body.linearVelocity.z);
+                
             }
-            
-            
+
 
             
         }
