@@ -11,6 +11,7 @@ public class CharacterAction : MonoBehaviour
     public LayerMask ground;
     public LayerMask climbable;
     public int health;
+    public GameObject attack;
 
 
    
@@ -83,7 +84,7 @@ public class CharacterAction : MonoBehaviour
         if (enemy.name == "Enemy")
         {
             health = health - 1;
-            Debug.Log(health);
+
         }
     }
 
@@ -142,6 +143,18 @@ public class CharacterAction : MonoBehaviour
 
        
         
+    }
+
+    public void Attack(InputAction.CallbackContext c)
+    {
+        if(c.started)
+        {
+            GameObject currentAttack = Instantiate(attack, transform.position + transform.forward, transform.rotation);
+            Destroy(currentAttack, 1.0f);
+            // new Vector3(transform.position.x, transform.position.y, transform.position.z + 1)
+        }
+
+       
     }
 
     // public void Climb(InputAction.CallbackContext c)

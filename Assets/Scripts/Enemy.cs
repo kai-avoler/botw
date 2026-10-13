@@ -6,6 +6,7 @@ public class Enemy : MonoBehaviour
     public float speed;
     public GameObject character;
     public Rigidbody body;
+    public int health;
 
     private Vector3 playerPos;
     private Vector3 distance;
@@ -27,5 +28,22 @@ public class Enemy : MonoBehaviour
         // transform.position = playerPos;
 
         body.linearVelocity = new Vector3(distance.x * speed, body.linearVelocity.y, distance.z * speed);
+
+        if(health == 0)
+        {
+            Destroy(gameObject);
+        }
     }
+
+    private void OnTriggerEnter(Collider attack)
+    {
+        
+        if (attack.name == "Attack(Clone)")
+        {
+            health = health - 1;
+            Debug.Log(health);
+        }
+    }
+
+
 }
