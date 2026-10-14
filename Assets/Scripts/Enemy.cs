@@ -10,11 +10,13 @@ public class Enemy : MonoBehaviour
 
     private Vector3 playerPos;
     private Vector3 distance;
+    private Quaternion rot;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         body = GetComponent<Rigidbody>();
+        rot = Quaternion.LookRotation(new Vector3(0, 0, 0));
     }
 
     // Update is called once per frame
@@ -29,6 +31,10 @@ public class Enemy : MonoBehaviour
 
         body.linearVelocity = new Vector3(distance.x * speed, body.linearVelocity.y, distance.z * speed);
 
+        rot = Quaternion.LookRotation(distance);
+        body.MoveRotation(rot);
+
+
         if(health == 0)
         {
             Destroy(gameObject);
@@ -41,7 +47,7 @@ public class Enemy : MonoBehaviour
         if (attack.name == "Attack(Clone)")
         {
             health = health - 1;
-            Debug.Log(health);
+     
         }
     }
 

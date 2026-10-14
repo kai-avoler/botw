@@ -32,7 +32,7 @@ public class CharacterAction : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+
 
         
 
@@ -57,7 +57,10 @@ public class CharacterAction : MonoBehaviour
                 rot = Quaternion.LookRotation(lookRot);
             }
             
-            body.MoveRotation(rot);
+            // body.MoveRotation(rot);
+
+            body.rotation = Quaternion.Slerp(body.rotation, rot, 10.0f * Time.fixedDeltaTime);
+            
             if (walkInput.magnitude < 0.01)
             {
                 body.linearVelocity = new Vector3(0, body.linearVelocity.y, 0);  
@@ -84,7 +87,7 @@ public class CharacterAction : MonoBehaviour
         if (enemy.name == "Enemy")
         {
             health = health - 1;
-
+            Debug.Log(health);
         }
     }
 
@@ -149,7 +152,7 @@ public class CharacterAction : MonoBehaviour
     {
         if(c.started)
         {
-            GameObject currentAttack = Instantiate(attack, transform.position + transform.forward, transform.rotation);
+            GameObject currentAttack = Instantiate(attack, transform.position + transform.forward, transform.rotation, this.transform);
             Destroy(currentAttack, 1.0f);
             // new Vector3(transform.position.x, transform.position.y, transform.position.z + 1)
         }
